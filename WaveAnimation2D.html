@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Wave Animation with Paths</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Set up scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.OrthographicCamera(-5, 5, 5, -5, 1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create line paths
+        const numPaths = 10;
+        const pathSpacing = 1;
+        const pathLength = 10;
+        const paths = [];
+        for (let i = 0; i < numPaths; i++) {
+            const path = new THREE.Line(
+                new THREE.BufferGeometry().setFromPoints(
+                    Array.from({ length: pathLength }, (_, index) => new THREE.Vector3(index * pathSpacing, 0, 0))
+                ),
+                new THREE.LineBasicMaterial({ color: 0xff0000 })
+            );
+            paths.push(path);
+            scene.add(path);
+        }
+
+        // Displace vertices sinusoidally to create wave animation
+        const timeStep = 0.1;
+        const amplitude = 0.5;
+        const frequency = 1;
+        const phase = 0;
+
+        function animatePaths() {
+            for (let i = 0; i < numPaths; i++) {
+                const path = paths[i];
+                const position = path.geometry.attributes.position;
+                for (let j = 0; j < position.count; j++) {
+                    const vertex = new THREE.Vector3();
+                    vertex.fromBufferAttribute(position, j);
+                    vertex.y = amplitude * Math.sin(vertex.x * frequency + phase);
+                    position.setY(j, vertex.y);
+                }
+                position.needsUpdate = true;
+            }
+        }
+
+        // Render loop
+        function animate() {
+            requestAnimationFrame(animate);
+            animatePaths();
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
