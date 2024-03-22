@@ -1,19 +1,20 @@
 let container = document.getElementById('animationContainer');
 let c = document.createElement('canvas');
 container.appendChild(c);
+console.log("domainNeural");
 
 let w = c.width = window.innerWidth,
-		h = c.height = window.innerHeight/6,
+		h = c.height = window.innerWidth/6,
 		ctx = c.getContext( '2d' ),
 		
 		opts = {
 			
-			range: 180,
-			baseConnections: 3,
-			addedConnections: 5,
-			baseSize: 5,
+			range: window.innerWidth/12,
+			baseConnections: 6,
+			addedConnections: 10,
+			baseSize: 6,
 			minSize: 1,
-			dataToConnectionSize: .4,
+			dataToConnectionSize: .9,
 			sizeMultiplier: .7,
 			allowedDist: 40,
 			baseDist: 40,
@@ -21,28 +22,28 @@ let w = c.width = window.innerWidth,
 			connectionAttempts: 100,
 			
 			dataToConnections: 1,
-			baseSpeed: .001,
+			baseSpeed: .007,
 			addedSpeed: .003,
 			baseGlowSpeed: .01,
-			addedGlowSpeed: .01,
+			addedGlowSpeed: .06,
 			
-			rotVelX: .003,
+			rotVelX: .00,
 			rotVelY: .002,
 			
 			repaintColor: 'rgba(0, 0, 0, 0)',
-			connectionColor: 'hsla(200,60%,light%,alp)',
+			connectionColor: 'hsla(200,90%,light%,alp)',
 			rootColor: 'hsla(0,60%,light%,alp)',
-			endColor: 'hsla(160,20%,light%,alp)',
-			dataColor: 'hsla(40,80%,light%,alp)',
+			endColor: 'hsla(218,80%,light%,alp)',
+			dataColor: 'hsla(282,70%,light%,alp)',
 			
-			wireframeWidth: .1,
-			wireframeColor: '#88f',
+			wireframeWidth: .4,
+			wireframeColor: '#092657',
 			
 			depth: 250,
-			focalLength: 250,
+			focalLength: 300,
 			vanishPoint: {
 				x: w / 2,
-				y: h / 2
+				y: h *1.1,
 			}
 		},
 		
@@ -64,8 +65,8 @@ let w = c.width = window.innerWidth,
         sinX = sinY;
         cosX = cosY;
 
+ctx.fillStyle = 'rgba(0, 0, 0, 0)';
 ctx.fillRect( 0, 0, w, h );
-ctx.fillStyle = 'rgba(255, 255, 255, 1)';
 ctx.font = '50px Verdana';
 ctx.fillText( '', w / 2 - ctx.measureText( '' ).width / 2, h / 2 - 15 );
 
@@ -240,6 +241,8 @@ Data.prototype.draw = function(){
 	ctx.beginPath();
 	ctx.strokeStyle = this.screen.color;
 	ctx.lineWidth = this.size * this.screen.scale;
+	
+	ctx.ellipse(this.screen.x, this.screen.y, .5, .5, 0, 0, Math.PI * 2);
 	ctx.moveTo( this.screen.lastX, this.screen.lastY );
 	ctx.lineTo( this.screen.x, this.screen.y );
 	ctx.stroke();
@@ -307,8 +310,45 @@ function squareDist( a, b ){
 	return x*x + y*y + z*z;
 }
 
+//Framerate Tracking
+let frameCount = 0;
+let lastTime = performance.now();
+let fps = 0;
+
+function updateFrameRate() {
+    let currentTime = performance.now();
+    frameCount++;
+    if (currentTime > lastTime + 1000) {
+        fps = frameCount;
+        frameCount = 0;
+        lastTime = currentTime;
+    }
+}
+
+function displayFrameRate() {
+    fpsCounter.textContent = `FPS: ${fps}`;
+}
+
+// Create an element to display the FPS
+const fpsCounter = document.createElement('div');
+fpsCounter.style.position = 'absolute';
+fpsCounter.style.bottom = '10px';
+fpsCounter.style.left = '10px';
+fpsCounter.style.color = 'black';
+fpsCounter.style.fontFamily = 'Arial';
+fpsCounter.style.fontSize = '14px';
+fpsCounter.style.zIndex = '100';
+document.body.appendChild(fpsCounter);
+
+// End
+
 function anim(){
-	
+	// Framerate Code
+    updateFrameRate();
+    displayFrameRate();
+	// End
+
+	ctx.clearRect(0,0,w,h);
 	window.requestAnimationFrame( anim );
 	
 	ctx.globalCompositeOperation = 'source-over';
@@ -350,6 +390,7 @@ function anim(){
 window.addEventListener( 'resize', function(){
 	
 	opts.vanishPoint.x = ( w = c.width = window.innerWidth ) / 2;
-	opts.vanishPoint.y = ( h = c.height = window.innerHeight ) / 2;
-	ctx.fillRect( 0, 0, w, w/6 );
+	opts.vanishPoint.y = window.innerWidth
+	opts.vanishPoint.y = ( h = c.height = window.innerWidth/ 6 ) * 1.1;
+	ctx.fillRect( 0, 0, w, w/4 );
 });
