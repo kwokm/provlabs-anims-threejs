@@ -7,11 +7,11 @@ let w = c.width = window.innerWidth,
 		ctx = c.getContext( '2d' ),
 		
 		opts = {
-			
-			range: 250,
+
+			range: window.innerWidth <= 600 ? 180 : (window.innerWidth < 1024 && window.innerWidth > 600) ? 200 : 235,
 			baseConnections: 10,
 			addedConnections: 2,
-			baseSize: 3.5,
+			baseSize: 4,
 			minSize: 1,
 			dataToConnectionSize: .45,
 			sizeMultiplier: .7,
@@ -20,7 +20,7 @@ let w = c.width = window.innerWidth,
 			addedDist: 30,
 			connectionAttempts: 100,
 			
-			dataToConnections: .2,
+			dataToConnections: .25,
 			baseSpeed: .004,
 			addedSpeed: .02,
 			baseGlowSpeed: .2,
@@ -35,8 +35,8 @@ let w = c.width = window.innerWidth,
 			endColor: 'hsla(212,100%,light%,alp)',
 			dataColor: 'hsla(284,80%, 80%,1)',
 			
-			wireframeWidth:.001,
-			wireframeColor: '#24467F',
+			wireframeWidth: .3,
+			wireframeColor: '#C9D8E8',
 			
 			depth: 250,
 			focalLength: 250,
