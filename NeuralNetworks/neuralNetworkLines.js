@@ -8,7 +8,7 @@ let w = c.width = window.innerWidth,
 		
 		opts = {
 
-			range: window.innerWidth <= 600 ? 180 : (window.innerWidth < 1024 && window.innerWidth > 600) ? 200 : 235,
+			range: window.innerWidth <= 600 ? 180 : (window.innerWidth < 1024 && window.innerWidth > 600) ? 200 : 220,
 			baseConnections: 10,
 			addedConnections: 2,
 			baseSize: 4,
@@ -19,12 +19,11 @@ let w = c.width = window.innerWidth,
 			baseDist: 40,
 			addedDist: 30,
 			connectionAttempts: 100,
-			
-			dataToConnections: .25,
-			baseSpeed: .004,
-			addedSpeed: .02,
-			baseGlowSpeed: .2,
-			addedGlowSpeed: .01,
+			dataToConnections: .1,
+			baseSpeed: .001,
+			addedSpeed: .003,
+			baseGlowSpeed: .03,
+			addedGlowSpeed: .03,
 			
 			rotVelX: .000,
 			rotVelY: .0005,
@@ -38,11 +37,11 @@ let w = c.width = window.innerWidth,
 			wireframeWidth: .3,
 			wireframeColor: '#C9D8E8',
 			
-			depth: 250,
+			depth: 180,
 			focalLength: 250,
 			vanishPoint: {
 				x: w / 2,
-				y: h * 1
+				y: h / 2
 			}
 		},
 		
@@ -69,7 +68,7 @@ ctx.fillRect( 0, 0, w, h );
 // ctx.font = '50px Verdana';
 // ctx.fillText( 'Calculating Nodes', w / 2 - ctx.measureText( 'Calculating Nodes' ).width / 2, h / 2 - 15 );
 
-window.setTimeout( init, 4 ); // to render the loading screen
+window.setTimeout( init, 1 ); // to render the loading screen
 
 function init(){
 	
@@ -352,7 +351,7 @@ function anim(){
 window.addEventListener( 'resize', function(){
 	
 	opts.vanishPoint.x = ( w = c.width = window.innerWidth ) / 2;
-	opts.vanishPoint.y = ( h = c.height = window.innerWidth/6 ) * 1.1;
+	opts.vanishPoint.y = ( h = c.height = window.innerWidth/6 ) /2 ;
 	ctx.fillRect( 0, 0, w, h );
 });
 // window.addEventListener( 'click', init );
