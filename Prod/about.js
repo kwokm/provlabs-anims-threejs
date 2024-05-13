@@ -6,7 +6,7 @@ const noiseStrength = 11.5; // Adjust the strength of the Perlin noise effect
 const animationSpeed = 0.35; // Adjust the speed of the animation
 
 let scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, 6/1, 0.01, 190);
+const camera = new THREE.PerspectiveCamera(45, 6/1, 0.01, 140);
 
 camera.position.set(0, 10, 0); // Adjust the height of the camera
 camera.rotation.x = /* degrees */ -23 * Math.PI / 180;
@@ -70,7 +70,6 @@ let vUv = new THREE.Vector2();
 let clock = new THREE.Clock();
 
 // Create an element to display the FPS
-/*
 const fpsCounter = document.createElement('div');
 fpsCounter.style.position = 'absolute';
 fpsCounter.style.bottom = '10px';
@@ -83,7 +82,6 @@ document.body.appendChild(fpsCounter);
 
 let frameCount = 0;
 let prevTime = Date.now();
-*/
 
 renderer.setAnimationLoop(() => {
     
@@ -98,7 +96,6 @@ renderer.setAnimationLoop(() => {
 
 
     // FPS calculation and display
-    /*
     const currentTime = Date.now();
     frameCount++;
     
@@ -107,7 +104,6 @@ renderer.setAnimationLoop(() => {
         frameCount = 0;
         prevTime = currentTime;
     }
-    */
 
     renderer.render(scene, camera);
 });
