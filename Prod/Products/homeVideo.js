@@ -1,19 +1,30 @@
-import "https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs";
-
     const animationContainer = document.getElementById('animationContainer');
-    const dotlottiePlayer = document.createElement('dotlottie-player');
-    dotlottiePlayer.setAttribute('src', 'https://lottie.host/35e6d049-0b75-43b0-a5b8-d14575482297/KUV0BnEVdE.lottie');
-    dotlottiePlayer.setAttribute('background', 'transparent');
-    dotlottiePlayer.setAttribute('speed', '1');
+
+    // Create the video element
+    const video = document.createElement('video');
+    video.style.width = "100%";
+    video.style.height = "100%";
+    animationContainer.style.overflow = "hidden";
+    animationContainer.style.borderRadius = "12px";
+    video.loop = true;
+    video.autoplay = true;
+    video.muted = true;
+    video.playsInline = true;
+
+    // Create the source element
+    const source = document.createElement('source');
+    source.src = "https://ucarecdn.com/0d3fb6e6-06b0-478e-9e64-ae9203abbaef/06031.mp4";
+    source.type = "video/mp4";
+    video.appendChild(source);
+
     if (window.innerWidth < 768) {
-        dotlottiePlayer.setAttribute('style', 'width: 240px; height: 240px;');
+        video.setAttribute('style', 'width: 240px; height: 240px;');
     }
 
     if (window.innerWidth > 768) {
-        dotlottiePlayer.setAttribute('style', 'width: 100%; height: auto;');
-    }    dotlottiePlayer.setAttribute('loop', 'true');
-    dotlottiePlayer.setAttribute('autoplay', 'true');
-    animationContainer.appendChild(dotlottiePlayer);
+        video.setAttribute('style', 'width: 100%; height: 100%;');
+    }
+    animationContainer.appendChild(video);
 
 // Adjust "people" module for homepage
 

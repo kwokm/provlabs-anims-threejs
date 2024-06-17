@@ -1,19 +1,36 @@
-import "https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs";
+import "https://unpkg.com/@splinetool/viewer@1.4.8/build/spline-viewer.js";
+
+
+// Remove spline watermark
+window.addEventListener('load', function() {
+    var splineViewer = document.querySelector('spline-viewer');
+    if (splineViewer) {
+        var shadowRoot = splineViewer.shadowRoot;
+        if (shadowRoot) {
+            var logoElement = shadowRoot.querySelector('#logo');
+            if (logoElement) {
+                logoElement.remove();
+            }
+        }
+    }
+});
 
     const animationContainer = document.getElementById('animationContainer');
-    const dotlottiePlayer = document.createElement('dotlottie-player');
-    dotlottiePlayer.setAttribute('src', 'https://lottie.host/35e6d049-0b75-43b0-a5b8-d14575482297/KUV0BnEVdE.lottie');
-    dotlottiePlayer.setAttribute('background', 'transparent');
-    dotlottiePlayer.setAttribute('speed', '1');
+    const parent = document.querySelector('.max-h-56.max-w-56.justify-self-end');
+    parent.style.height = "100%";
+    animationContainer.style.width = "100%";
+    animationContainer.style.height = "100%";
+    const splineViewer = document.createElement('spline-viewer');
+    splineViewer.setAttribute('url', 'https://prod.spline.design/RM4hrapmhCw7ZH7u/scene.splinecode');
     if (window.innerWidth < 768) {
-        dotlottiePlayer.setAttribute('style', 'width: 240px; height: 240px;');
+        splineViewer.setAttribute('style', 'width: 240px; height: 240px;');
     }
 
     if (window.innerWidth > 768) {
-        dotlottiePlayer.setAttribute('style', 'width: 100%; height: auto;');
-    }    dotlottiePlayer.setAttribute('loop', 'true');
-    dotlottiePlayer.setAttribute('autoplay', 'true');
-    animationContainer.appendChild(dotlottiePlayer);
+        splineViewer.setAttribute('style', 'width: 100%; height: 100%;');
+    }
+    animationContainer.innerHTML="";
+    animationContainer.appendChild(splineViewer);
 
 // Adjust "people" module for homepage
 
