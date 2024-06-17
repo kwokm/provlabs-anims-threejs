@@ -65,6 +65,9 @@ function onWindowResize() {
     if (window.innerWidth > 768) {
         video.setAttribute('style', 'width: 100%; height: auto; mix-blend-mode: darken;');
         divElement.style.backgroundImage = "url('https://ucarecdn.com/eed14b1f-a094-4e53-82a2-624e8e9b8945/SolutionsHomeBG.png')";
+        divElement.style.backgroundSize = "cover";
+        divElement.style.backgroundRepeat = "no-repeat";
+        divElement.style.backgroundPosition = "top";
     }
 }
 window.addEventListener('resize', onWindowResize);
