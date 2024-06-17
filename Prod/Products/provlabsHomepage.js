@@ -1,19 +1,28 @@
-import "https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs";
+const animationContainer = document.getElementById('animationContainer');
 
-    const animationContainer = document.getElementById('animationContainer');
-    const dotlottiePlayer = document.createElement('dotlottie-player');
-    dotlottiePlayer.setAttribute('src', 'https://lottie.host/35e6d049-0b75-43b0-a5b8-d14575482297/KUV0BnEVdE.lottie');
-    dotlottiePlayer.setAttribute('background', 'transparent');
-    dotlottiePlayer.setAttribute('speed', '1');
-    if (window.innerWidth < 768) {
-        dotlottiePlayer.setAttribute('style', 'width: 240px; height: 240px;');
-    }
+// Create the video element
+const video = document.createElement('video');
+animationContainer.style.overflow = "hidden";
+animationContainer.style.borderRadius = "12px";
+video.loop = true;
+video.autoplay = true;
+video.muted = true;
+video.playsInline = true;
 
-    if (window.innerWidth > 768) {
-        dotlottiePlayer.setAttribute('style', 'width: 100%; height: auto;');
-    }    dotlottiePlayer.setAttribute('loop', 'true');
-    dotlottiePlayer.setAttribute('autoplay', 'true');
-    animationContainer.appendChild(dotlottiePlayer);
+// Create the source element
+const source = document.createElement('source');
+source.src = "https://ucarecdn.com/4e46a549-b27a-4b5b-8cdb-749472a8a83f/ProvLabsLogoWhite.mp4";
+source.type = "video/mp4";
+video.appendChild(source);
+
+if (window.innerWidth < 768) {
+    video.setAttribute('style', 'width: 240px; height: 240px; mix-blend-mode: darken;');
+}
+
+if (window.innerWidth > 768) {
+    video.setAttribute('style', 'width: 100%; height: auto; mix-blend-mode: darken;');
+}
+animationContainer.appendChild(video);
 
 // Adjust "people" module for homepage
 
@@ -49,14 +58,13 @@ divElements.forEach(divElement => {
 function onWindowResize() {
 
     if (window.innerWidth < 768) {
-        dotlottiePlayer.setAttribute('style', 'width: 240px; height: 240px;');
+        video.setAttribute('style', 'width: 240px; height: 240px; mix-blend-mode: darken;');
         divElement.style.backgroundImage = "none";
     }
 
     if (window.innerWidth > 768) {
-        dotlottiePlayer.setAttribute('style', 'width: 100%; height: auto;');
-        divElement.style.backgroundImage = "url('https://www.datocms-assets.com/114273/1715560307-solhomebg.png')";
-
+        video.setAttribute('style', 'width: 100%; height: auto; mix-blend-mode: darken;');
+        divElement.style.backgroundImage = "url('https://ucarecdn.com/eed14b1f-a094-4e53-82a2-624e8e9b8945/SolutionsHomeBG.png')";
     }
 }
 window.addEventListener('resize', onWindowResize);
